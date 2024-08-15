@@ -28,7 +28,7 @@ jobs:
 
   sonarqube:
     needs: test
-    if: false
+    if: true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -119,7 +119,7 @@ jobs:
           path: report_json.json
 
   build:
-    needs: sonarqube
+    needs: [sonarqube, dast]
     runs-on: ubuntu-latest
     steps:
       -
