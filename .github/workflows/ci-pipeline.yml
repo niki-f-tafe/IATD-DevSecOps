@@ -27,7 +27,7 @@ jobs:
           path: junit/test-results.xml
           
   image-scan:
-    needs: [test]
+    needs: test
     if: true
     runs-on: ubuntu-latest
     steps:
@@ -187,7 +187,7 @@ jobs:
           echo "All security gates passed"
 
   build:
-    needs: [sonarqube, dast]
+    needs: security_gate
     runs-on: ubuntu-latest
     steps:
       -
@@ -210,7 +210,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops-labs:latest
           
   submit_results:
-    needs: [build]
+    needs: [sonarqube, dast, image-scan]
     if: true
     runs-on: ubuntu-latest
     steps:
