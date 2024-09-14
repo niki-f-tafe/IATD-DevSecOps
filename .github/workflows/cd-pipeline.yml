@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.4.0
@@ -35,7 +35,7 @@ jobs:
   submit_results:
     needs: [deploy]
     if: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: azure/login@v1
       with:
