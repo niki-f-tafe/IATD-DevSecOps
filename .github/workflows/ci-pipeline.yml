@@ -221,7 +221,7 @@ jobs:
         env:
           IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/devops-labs:latest
         run: |
-          cosign sign --yes $IMAGE --certificate-identity-regexp $CERT_IDENTITY_REGEXP --certificate-oidc-issuer $GITHUB_ISSUER
+          cosign sign --yes $IMAGE --certificate-oidc-issuer $GITHUB_ISSUER
 
   submit_results:
     needs: [sonarqube, dast, image-scan]
