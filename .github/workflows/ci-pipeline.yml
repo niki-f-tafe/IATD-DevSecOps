@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -29,7 +29,7 @@ jobs:
   image-scan:
     needs: test
     if: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
         - name: Scan image
           uses: anchore/scan-action@v3
@@ -48,7 +48,7 @@ jobs:
   sonarqube:
     needs: test
     if: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
       with:
@@ -76,7 +76,7 @@ jobs:
   dast:
     needs: test
     if: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       -
@@ -141,7 +141,7 @@ jobs:
   security_gate:
     needs: [sonarqube, dast, image-scan]
     if: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Download sonarqube-report
         uses: actions/download-artifact@v4
@@ -191,7 +191,7 @@ jobs:
     if: true
     permissions:
       id-token: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       -
         name: Set up QEMU
@@ -226,7 +226,7 @@ jobs:
   submit_results:
     needs: [sonarqube, dast, image-scan]
     if: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: azure/login@v1
