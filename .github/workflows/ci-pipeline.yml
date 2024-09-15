@@ -187,7 +187,7 @@ jobs:
           echo "All security gates passed"
 
   build:
-    needs: [] #security_gate
+    needs: [sonarqube, dast, image-scan]
     if: true
     permissions:
       id-token: write
@@ -224,7 +224,7 @@ jobs:
           cosign sign --yes $IMAGE
 
   submit_results:
-    needs: [sonarqube, dast, image-scan]
+    needs: build
     if: true
     runs-on: ubuntu-22.04
     steps:
